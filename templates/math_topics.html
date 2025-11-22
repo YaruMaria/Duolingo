@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Темы ОГЭ - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Темы</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Заголовок -->
+        <div class="module-header">
+            <h1>Задания ОГЭ по математике</h1>
+            <div class="module-subtitle">Все 25 заданий для подготовки</div>
+        </div>
+
+        <!-- Сетка тем 5x5 -->
+        <div class="topics-grid-5x5">
+            <!-- Ряд 1 -->
+            <div class="topic-card-5x5" onclick="openTopic(1)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Группы задач по тексту</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(2)">
+                <div class="topic-number-5x5">№6</div>
+                <div class="topic-title-5x5">Числа и вычисления</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(3)">
+                <div class="topic-number-5x5">№7</div>
+                <div class="topic-title-5x5">Числовые неравенства, координатная прямая</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(4)">
+                <div class="topic-number-5x5">№8</div>
+                <div class="topic-title-5x5">Числа, вычисления и алгебраические выражения</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(5)">
+                <div class="topic-number-5x5">№9</div>
+                <div class="topic-title-5x5">Уравнения</div>
+            </div>
+
+            <!-- Ряд 2 -->
+            <div class="topic-card-5x5" onclick="openTopic(6)">
+                <div class="topic-number-5x5">№10</div>
+                <div class="topic-title-5x5">Теория вероятностей</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(7)">
+                <div class="topic-number-5x5">№11</div>
+                <div class="topic-title-5x5">Графики функций</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(8)">
+                <div class="topic-number-5x5">№12</div>
+                <div class="topic-title-5x5">Расчеты по формулам</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(9)">
+                <div class="topic-number-5x5">№13</div>
+                <div class="topic-title-5x5">Неравенства, системы неравенств</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(10)">
+                <div class="topic-number-5x5">№14</div>
+                <div class="topic-title-5x5">Прогрессии</div>
+            </div>
+
+            <!-- Ряд 3 -->
+            <div class="topic-card-5x5" onclick="openTopic(11)">
+                <div class="topic-number-5x5">№15</div>
+                <div class="topic-title-5x5">Треугольники</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(12)">
+                <div class="topic-number-5x5">№16</div>
+                <div class="topic-title-5x5">Окружности</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(13)">
+                <div class="topic-number-5x5">№17</div>
+                <div class="topic-title-5x5">Четырёхугольники</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(14)">
+                <div class="topic-number-5x5">№18</div>
+                <div class="topic-title-5x5">Фигуры на клетчатой плоскости</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(15)">
+                <div class="topic-number-5x5">№19</div>
+                <div class="topic-title-5x5">Анализ геометрических высказываний</div>
+            </div>
+
+            <!-- Ряд 4 -->
+            <div class="topic-card-5x5" onclick="openTopic(16)">
+                <div class="topic-number-5x5">№20</div>
+                <div class="topic-title-5x5">Алгебраические выражения, уравнения, неравенства и их системы</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(17)">
+                <div class="topic-number-5x5">№21</div>
+                <div class="topic-title-5x5">Текстовые задачи</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(18)">
+                <div class="topic-number-5x5">№22</div>
+                <div class="topic-title-5x5">Графики функций</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(19)">
+                <div class="topic-number-5x5">№23</div>
+                <div class="topic-title-5x5">Геометрические задачи на вычисление</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTopic(20)">
+                <div class="topic-number-5x5">№24</div>
+                <div class="topic-title-5x5">Геометрические задачи на доказательство</div>
+            </div>
+
+            <!-- Ряд 5 -->
+            <div class="topic-card-5x5" onclick="openTopic(21)">
+                <div class="topic-number-5x5">№25</div>
+                <div class="topic-title-5x5">Геометрические задачи повышенной сложности</div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="#" class="nav-item active">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = '/';
+        }
+
+        function openTopic(topicId) {
+            if (topicId === 1) {
+                // Для №1-5 открываем страницу с 7 задачами
+                window.location.href = '/tasks_1_5';
+            } else {
+                // Для остальных тем - обычная страница
+                window.location.href = '/topic_detail/' + topicId;
+            }
+        }
+    </script>
+</body>
+</html>

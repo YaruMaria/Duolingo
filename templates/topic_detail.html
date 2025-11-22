@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ topic.title }} - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Задание</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Заголовок темы -->
+        <div class="module-header">
+            <h1>{{ topic.number }}</h1>
+            <div class="module-subtitle">{{ topic.title }}</div>
+        </div>
+
+        <!-- Контент темы -->
+        <div class="topic-content">
+            <div class="task-description">
+                <h3>Описание задания:</h3>
+                <p>Здесь будет подробное описание задания и примеры решения.</p>
+            </div>
+
+            <div class="task-examples">
+                <h3>Примеры задач:</h3>
+                <div class="example-card">
+                    <p><strong>Задача 1:</strong> Решите пример...</p>
+                </div>
+                <div class="example-card">
+                    <p><strong>Задача 2:</strong> Найдите значение...</p>
+                </div>
+            </div>
+
+            <button class="start-practice-button" onclick="startPractice()">
+                🎯 Начать практику
+            </button>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="/math_topics" class="nav-item">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function startPractice() {
+            alert('Практика по теме "' + '{{ topic.title }}' + '" начинается!');
+            // Здесь будет логика начала практики
+        }
+    </script>
+</body>
+</html>

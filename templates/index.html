@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathGym - Математика ОГЭ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Ур. 5</div>
+            </div>
+
+            <div class="stats">
+                <div class="hearts">
+                    {% for i in range(5) %}
+                        <span class="heart {% if i < hearts %}active{% else %}inactive{% endif %}">❤️</span>
+                    {% endfor %}
+                </div>
+                <div class="gems">
+                    💎 <span id="gems-count">{{ gems }}</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Уведомления -->
+        <div id="notification" class="notification hidden">
+            <span id="notification-text"></span>
+        </div>
+
+        <!-- Прогресс бар -->
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ progress }}%"></div>
+            </div>
+            <div class="progress-text">{{ progress }}% завершено</div>
+        </div>
+
+        <!-- Заголовок модуля -->
+        <div class="module-header">
+            <h1>{{ title }}</h1>
+            <div class="module-subtitle">Подготовка к ОГЭ по математике</div>
+        </div>
+
+        <!-- Вертикальная цепочка уровней по центру -->
+        <div class="vertical-roadmap">
+            {% for level in levels %}
+            <div class="level-path">
+                <!-- Соединительная линия -->
+                {% if not loop.first %}
+                <div class="connection-line {% if level.completed %}completed{% elif not level.locked and levels[loop.index-2].completed %}available{% endif %}"></div>
+                {% endif %}
+
+                <!-- Уровень -->
+                <div class="level-wrapper">
+                    <div class="level-node {% if level.completed %}completed{% elif level.locked %}locked{% else %}available{% endif %}"
+                         data-level="{{ level.number }}"
+                         onclick="handleLevelClick({{ level.number }}, '{{ level.type }}')">
+
+                        <div class="level-icon">
+                            {% if level.type == 'book' %}📚{% endif %}
+                            {% if level.type == 'brain' %}🧠{% endif %}
+                            {% if level.type == 'practice' %}✏️{% endif %}
+                            {% if level.type == 'test' %}📝{% endif %}
+                            {% if level.type == 'repeat' %}🔄{% endif %}
+                            {% if level.type == 'exam' %}🎯{% endif %}
+                        </div>
+
+                        <div class="level-number">{{ level.number }}</div>
+
+                        {% if level.completed %}
+                        <div class="level-stars">
+                            {% for i in range(3) %}
+                                <span class="star {% if i < level.stars %}filled{% endif %}">⭐</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Кнопка начала -->
+        <div class="start-section">
+            <button class="start-button" onclick="startLesson()">НАЧАТЬ ПУТЕШЕСТВИЕ</button>
+        </div>
+
+        <!-- Тестовые кнопки -->
+        <div class="test-buttons">
+            <button class="test-button" onclick="loseHeart()">💔 Потерять сердце</button>
+            <button class="test-button" onclick="addGems()">💰 Добавить самоцветы</button>
+            <button class="test-button" onclick="completeCurrentLevel()">✅ Завершить уровень</button>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">🏠</a>
+            <a href="#" class="nav-item">📊</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+
+            notificationText.textContent = message;
+            notification.className = `notification ${type} show`;
+
+            setTimeout(() => {
+                notification.className = 'notification hidden';
+            }, 3000);
+        }
+
+        // Обработчик клика на уровень
+        function handleLevelClick(levelNumber, levelType) {
+            if (levelType === 'book') {
+                // Если это "Новая тема" - открываем страницу с темами ОГЭ
+                window.location.href = '/math_topics';
+            } else {
+                // Для других типов уровней - обычная логика
+                playLevel(levelNumber);
+            }
+        }
+
+        function startLesson() {
+            fetch('/start_lesson')
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message, 'success');
+                })
+                .catch(error => {
+                    showNotification('Ошибка при запуске урока', 'error');
+                });
+        }
+
+        function playLevel(levelNumber) {
+            fetch(`/play_level/${levelNumber}`)
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message, data.action === 'level_started' ? 'success' : 'error');
+                })
+                .catch(error => {
+                    showNotification('Ошибка при запуске уровня', 'error');
+                });
+        }
+
+        function completeCurrentLevel() {
+            const availableLevels = document.querySelectorAll('.level-node.available');
+            if (availableLevels.length > 0) {
+                const levelNumber = availableLevels[0].getAttribute('data-level');
+                completeLevel(levelNumber);
+            } else {
+                showNotification('❌ Нет доступных уровней для завершения', 'error');
+            }
+        }
+
+        function completeLevel(levelNumber) {
+            fetch(`/complete_level/${levelNumber}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (response.ok) {
+                        showNotification(data.message, 'success');
+                        document.getElementById('gems-count').textContent = data.gems;
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        showNotification(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    showNotification('Ошибка при завершении уровня', 'error');
+                });
+        }
+
+        function loseHeart() {
+            fetch('/lose_heart')
+                .then(response => response.json())
+                .then(data => {
+                    if (response.ok) {
+                        showNotification(data.message, 'warning');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        showNotification(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    showNotification('Ошибка', 'error');
+                });
+        }
+
+        function addGems() {
+            fetch('/add_gems')
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message, 'success');
+                    document.getElementById('gems-count').textContent = data.gems;
+                })
+                .catch(error => {
+                    showNotification('Ошибка', 'error');
+                });
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                showNotification(`Переход в раздел: ${this.textContent}`, 'info');
+            });
+        });
+    </script>
+</body>
+</html>

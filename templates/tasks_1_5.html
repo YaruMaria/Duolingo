@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задачи №1-5 - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">№1-5</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Заголовок -->
+        <div class="module-header">
+            <h1>Задачи №1-5</h1>
+            <div class="module-subtitle">Группы задач по тексту</div>
+        </div>
+
+        <!-- Сетка из 7 задач в стиле основной сетки -->
+        <div class="topics-grid-5x5">
+            <!-- Ряд 1 -->
+            <div class="topic-card-5x5" onclick="openTask(1)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Дороги</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTask(2)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Квартиры</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTask(3)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Участки</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTask(4)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Печи</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTask(5)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Бумага</div>
+            </div>
+
+            <!-- Ряд 2 -->
+            <div class="topic-card-5x5" onclick="openTask(6)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Мобильный интернет</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openTask(7)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Шины</div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="/math_topics" class="nav-item">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = '/math_topics';
+        }
+
+        function openTask(taskId) {
+            window.location.href = '/task_detail/' + taskId;
+        }
+    </script>
+</body>
+</html>
