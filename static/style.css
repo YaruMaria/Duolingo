@@ -24,6 +24,15 @@ body {
     position: relative;
 }
 
+/* Контейнер на всю ширину для страницы с задачами */
+.container-full {
+    width: 100%;
+    max-width: 100%;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+}
+
 /* Верхняя панель */
 .header {
     display: flex;
@@ -93,38 +102,25 @@ body {
     box-shadow: 0 3px 6px rgba(28, 176, 246, 0.3);
 }
 
-/* Прогресс бар */
-.progress-section {
-    padding: 15px 25px;
-    background: #f8f9fa;
+/* Кнопка назад */
+.back-button {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.progress-bar {
-    width: 100%;
-    height: 10px;
-    background: #e0e0e0;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 8px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+.back-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(149, 165, 166, 0.3);
 }
 
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #58cc02, #7ae600);
-    border-radius: 5px;
-    transition: width 0.5s ease;
-    box-shadow: 0 2px 4px rgba(88, 204, 2, 0.3);
-}
-
-.progress-text {
-    font-size: 13px;
-    color: #666;
-    text-align: center;
-    font-weight: 600;
-}
-
-/* Заголовок модуля */
+/* Заголовки */
 .module-header {
     padding: 25px 25px 20px;
     text-align: center;
@@ -139,6 +135,27 @@ body {
 }
 
 .module-subtitle {
+    color: #7f8c8d;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Заголовок на всю ширину */
+.module-header-full {
+    padding: 25px 20px 20px;
+    text-align: center;
+    background: white;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.module-header-full h1 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.module-header-full .module-subtitle {
     color: #7f8c8d;
     font-size: 16px;
     font-weight: 500;
@@ -401,24 +418,6 @@ body {
     visibility: visible;
 }
 
-/* Кнопка назад */
-.back-button {
-    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 15px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.back-button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(149, 165, 166, 0.3);
-}
-
 /* Сетка 5x5 */
 .topics-grid-5x5 {
     display: grid;
@@ -510,6 +509,239 @@ body {
     100% { box-shadow: 0 6px 15px rgba(88, 204, 2, 0.3); }
 }
 
+/* ========== СТИЛИ ДЛЯ СТРАНИЦЫ С ЗАДАЧАМИ ========== */
+
+/* PDF секция на всю ширину */
+.pdf-viewer-section-full {
+    padding: 20px;
+    background: #f8f9fa;
+    margin: 0;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.pdf-viewer-section-full h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.pdf-container-full {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    max-width: 100%;
+    background: white;
+}
+
+.pdf-frame-full {
+    border: none;
+    width: 100%;
+    min-height: 400px;
+}
+
+.pdf-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pdf-button {
+    background: linear-gradient(135deg, #1cb0f6, #0d8ecf);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.pdf-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(28, 176, 246, 0.3);
+}
+
+/* Галерея на всю ширину с маленькими картинками */
+.gallery-section-full {
+    padding: 20px 0;
+    background: white;
+}
+
+.gallery-section-full h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.gallery-grid-full {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 0 20px;
+    width: calc(100% - 40px);
+}
+
+.gallery-item-full {
+    background: white;
+    padding: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid #f8f9fa;
+}
+
+.gallery-item-full:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border-color: #1cb0f6;
+}
+
+.gallery-item-full img {
+    width: 100%;
+    height: 150px; /* МАЛЕНЬКАЯ ВЫСОТА */
+    object-fit: cover; /* Обрезаем чтобы влезало */
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 2px solid #e0e0e0;
+}
+
+.gallery-item-full .image-caption {
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: 500;
+    padding: 5px;
+    line-height: 1.3;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    display: block;
+    margin: 2% auto;
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 10px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close:hover {
+    color: #ff6b6b;
+}
+
+#modalCaption {
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.modal-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+.modal-button {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.modal-button:hover {
+    background: white;
+    color: #2c3e50;
+}
+
+/* Секция завершения */
+.completion-section-full {
+    padding: 30px 20px;
+    text-align: center;
+    background: #f8f9fa;
+    border-top: 2px solid #e0e0e0;
+}
+
+.complete-button {
+    background: linear-gradient(135deg, #58cc02, #7ae600);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #49a302;
+    transition: all 0.2s ease;
+}
+
+.complete-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #49a302;
+}
+
+.complete-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #49a302;
+}
+
+/* Нижняя навигация на всю ширину */
+.bottom-nav-full {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: #f8f9fa;
+    border-top: 3px solid #e0e0e0;
+    width: 100%;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+
 /* Адаптивность для сетки 5x5 */
 @media (max-width: 500px) {
     .topics-grid-5x5 {
@@ -536,75 +768,105 @@ body {
     .topics-grid-5x5 {
         grid-template-columns: repeat(2, 1fr);
     }
-    /* Добавьте эти стили в конец файла */
-
-/* Сетка для 7 задач */
-.tasks-grid-7 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 20px;
-    max-height: 500px;
-    overflow-y: auto;
 }
 
-.task-card-7 {
-    background: linear-gradient(135deg, #58cc02, #7ae600);
-    color: white;
-    border-radius: 12px;
-    padding: 20px 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    box-shadow: 0 4px 12px rgba(88, 204, 2, 0.3);
-    min-height: 90px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid transparent;
-}
-
-.task-card-7:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(88, 204, 2, 0.4);
-    background: linear-gradient(135deg, #1cb0f6, #0d8ecf);
-}
-
-.task-number-7 {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    opacity: 0.9;
-}
-
-.task-title-7 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.2;
-    text-align: center;
-}
-
-/* Адаптивность для сетки 7 задач */
-@media (max-width: 400px) {
-    .tasks-grid-7 {
+/* Адаптивность для галереи */
+@media (max-width: 768px) {
+    .gallery-grid-full {
         grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 15px;
+        gap: 12px;
+        margin: 0 15px;
+        width: calc(100% - 30px);
     }
 
-    .task-card-7 {
-        padding: 15px 10px;
-        min-height: 80px;
+    .gallery-item-full {
+        padding: 12px;
     }
 
-    .task-number-7 {
+    .gallery-item-full img {
+        height: 180px;
+    }
+
+    .gallery-item-full .image-caption {
         font-size: 13px;
     }
 
-    .task-title-7 {
+    .pdf-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pdf-button {
+        width: 200px;
+    }
+
+    .modal-content {
+        max-width: 95%;
+        max-height: 70%;
+    }
+
+    .modal-controls {
+        bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-section-full h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .gallery-grid-full {
+        margin: 0 10px;
+        width: calc(100% - 20px);
+        gap: 10px;
+    }
+
+    .gallery-item-full {
+        padding: 10px;
+    }
+
+    .gallery-item-full img {
+        height: 140px; /* Еще меньше на мобильных */
+    }
+
+    .gallery-item-full .image-caption {
+        font-size: 12px;
+        padding: 3px;
+    }
+
+    .modal-button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .module-header-full {
+        padding: 20px 15px 15px;
+    }
+
+    .module-header-full h1 {
+        font-size: 22px;
+    }
+
+    .module-header-full .module-subtitle {
         font-size: 14px;
     }
 }
+
+/* Для очень маленьких экранов */
+@media (max-width: 360px) {
+    .gallery-item-full img {
+        height: 120px;
+    }
+}
+
+/* Горизонтальная ориентация на мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+    .gallery-grid-full {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-item-full img {
+        height: 100px;
+    }
 }
