@@ -24,120 +24,53 @@
         </div>
 
         <!-- PDF просмотрщик -->
-<!--        <div class="pdf-viewer-section-full">-->
-<!--            <h3>Условие задачи</h3>-->
-<!--            <div class="pdf-container-full">-->
-<!--                <iframe-->
-<!--                    src="https://smallpdf.com/ru/file#s=97ea26c5-15dd-4208-b3e1-fba2ac976378"-->
-<!--                    width="100%"-->
-<!--                    height="500"-->
-<!--                    frameborder="0"-->
-<!--                    class="pdf-frame-full">-->
-<!--                </iframe>-->
-<!--            </div>-->
-<!--            <div class="pdf-controls">-->
-<!--                <button class="pdf-button" onclick="rotatePDF()">🔄 Повернуть</button>-->
-<!--                <button class="pdf-button" onclick="downloadPDF()">📥 Скачать</button>-->
-<!--                <button class="pdf-button" onclick="zoomIn()">🔍 Увеличить</button>-->
-<!--                <button class="pdf-button" onclick="zoomOut()">🔎 Уменьшить</button>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="pdf-viewer-section-full">
+            <h3>Условие задачи</h3>
+            <div class="pdf-container-full">
+                <iframe
+                    src="{{ task.pdf_url }}"
+                    width="100%"
+                    height="500"
+                    frameborder="0"
+                    class="pdf-frame-full">
+                </iframe>
+            </div>
+            <div class="pdf-controls">
+                <button class="pdf-button" onclick="rotatePDF()">🔄 Повернуть</button>
+                <button class="pdf-button" onclick="downloadPDF()">📥 Скачать</button>
+                <button class="pdf-button" onclick="zoomIn()">🔍 Увеличить</button>
+                <button class="pdf-button" onclick="zoomOut()">🔎 Уменьшить</button>
+            </div>
+        </div>
 
         <!-- Галерея решений -->
         <div class="gallery-section-full">
             <h3>Решения и объяснения</h3>
             <div class="gallery-grid-full">
-                <!-- Решение 1 -->
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_1.jpg') }}"
-                         alt="Решение 1"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Решение шаг 1</div>
+                {% for i in range(task.images|length) %}
+                <div class="gallery-item-full" onclick="openModal(this)">
+                    <img src="{{ url_for('static', filename='images/' + task.images[i]) }}"
+                         alt="Решение {{ i+1 }}"
+                         data-index="{{ i }}">
+                    <div class="image-caption">
+                        {% if i == 0 %}Решение шаг 1
+                        {% elif i == 1 %}Решение шаг 2
+                        {% elif i == 2 %}Альтернативное решение 1
+                        {% elif i == 3 %}Альтернативное решение 2
+                        {% elif i == 4 %}Разбор ошибок 1
+                        {% elif i == 5 %}Разбор ошибок 2
+                        {% elif i == 6 %}Примеры аналогичных задач 1
+                        {% elif i == 7 %}Примеры аналогичных задач 2
+                        {% elif i == 8 %}Формулы и теоремы 1
+                        {% elif i == 9 %}Формулы и теоремы 2
+                        {% elif i == 10 %}Визуализация 1
+                        {% elif i == 11 %}Визуализация 2
+                        {% elif i == 12 %}Итоговый ответ
+                        {% else %}Решение {{ i+1 }}
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_2.jpg') }}"
-                         alt="Решение 2"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Решение шаг 2</div>
-                </div>
-
-                <!-- Решение 2 -->
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_3.jpg') }}"
-                         alt="Решение 3"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Альтернативное решение 1</div>
-                </div>
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_4.jpg') }}"
-                         alt="Решение 4"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Альтернативное решение 2</div>
-                </div>
-
-                <!-- Решение 3 -->
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_5.jpg') }}"
-                         alt="Решение 5"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Разбор ошибок 1</div>
-                </div>
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_6.jpg') }}"
-                         alt="Решение 6"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Разбор ошибок 2</div>
-                </div>
-
-                <!-- Решение 4 -->
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_7.jpg') }}"
-                         alt="Решение 7"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Примеры аналогичных задач 1</div>
-                </div>
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_8.jpg') }}"
-                         alt="Решение 8"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Примеры аналогичных задач 2</div>
-                </div>
-
-                <!-- Решение 5 -->
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_9.jpg') }}"
-                         alt="Решение 9"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Формулы и теоремы 1</div>
-                </div>
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_10.jpg') }}"
-                         alt="Решение 10"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Формулы и теоремы 2</div>
-                </div>
-
-                <!-- Решение 6 -->
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_11.jpg') }}"
-                         alt="Решение 11"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Визуализация 1</div>
-                </div>
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_12.jpg') }}"
-                         alt="Решение 12"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Визуализация 2</div>
-                </div>
-
-                <!-- Решение 7 -->
-                <div class="gallery-item-full">
-                    <img src="{{ url_for('static', filename='images/№1-5_дороги_13.jpg') }}"
-                         alt="Решение 13"
-                         onclick="openModal(this)">
-                    <div class="image-caption">Итоговый ответ</div>
-                </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -193,17 +126,18 @@
             alert('Уменьшить масштаб PDF');
         }
 
-        function openModal(img) {
+        function openModal(element) {
+            const img = element.querySelector('img');
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const caption = document.getElementById('modalCaption');
 
             modal.style.display = 'block';
             modalImg.src = img.src;
-            caption.innerHTML = img.parentElement.querySelector('.image-caption').innerHTML;
+            caption.innerHTML = element.querySelector('.image-caption').innerHTML;
 
             // Находим индекс текущего изображения
-            currentImageIndex = Array.from(images).indexOf(img);
+            currentImageIndex = parseInt(img.getAttribute('data-index'));
         }
 
         function closeModal() {
@@ -212,31 +146,36 @@
 
         function prevImage() {
             currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-            document.getElementById('modalImage').src = images[currentImageIndex].src;
-            document.getElementById('modalCaption').innerHTML =
-                images[currentImageIndex].parentElement.querySelector('.image-caption').innerHTML;
+            updateModalImage();
         }
 
         function nextImage() {
             currentImageIndex = (currentImageIndex + 1) % images.length;
-            document.getElementById('modalImage').src = images[currentImageIndex].src;
-            document.getElementById('modalCaption').innerHTML =
-                images[currentImageIndex].parentElement.querySelector('.image-caption').innerHTML;
+            updateModalImage();
+        }
+
+        function updateModalImage() {
+            const modalImg = document.getElementById('modalImage');
+            const caption = document.getElementById('modalCaption');
+
+            modalImg.src = images[currentImageIndex].src;
+            caption.innerHTML = images[currentImageIndex].parentElement.querySelector('.image-caption').innerHTML;
         }
 
         function completeTask(taskId) {
             fetch(`/complete_task/${taskId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (response.ok) {
-                        alert(data.message);
-                        setTimeout(() => window.location.href = '/tasks_1_5', 1500);
-                    } else {
-                        alert(data.message);
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message);
+                    setTimeout(() => window.location.href = '/tasks_1_5', 1500);
                 })
                 .catch(error => {
-                    alert('Ошибка при завершении задачи');
+                    alert('Ошибка при завершении задачи: ' + error.message);
                 });
         }
 

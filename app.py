@@ -21,7 +21,7 @@ game_state = {
     ]
 }
 
-# 21 тема для сетки (было 25, но в вашем HTML только 21)
+# 21 тема для сетки ОГЭ
 math_topics = [
     {'id': 1, 'number': '№1-5', 'title': 'Группы задач по тексту', 'completed': False},
     {'id': 2, 'number': '№6', 'title': 'Числа и вычисления', 'completed': False},
@@ -47,15 +47,92 @@ math_topics = [
     {'id': 21, 'number': '№25', 'title': 'Геометрические задачи повышенной сложности', 'completed': False}
 ]
 
-# 7 тем для №1-5
+# 7 тем для №1-5 с разными PDF и изображениями
 tasks_1_5 = [
-    {'id': 1, 'number': '№1-5', 'title': 'Дороги', 'completed': False},
-    {'id': 2, 'number': '№1-5', 'title': 'Квартиры', 'completed': False},
-    {'id': 3, 'number': '№1-5', 'title': 'Участки', 'completed': False},
-    {'id': 4, 'number': '№1-5', 'title': 'Печи', 'completed': False},
-    {'id': 5, 'number': '№1-5', 'title': 'Бумага', 'completed': False},
-    {'id': 6, 'number': '№1-5', 'title': 'Мобильный интернет', 'completed': False},
-    {'id': 7, 'number': '№1-5', 'title': 'Шины', 'completed': False}
+    {
+        'id': 1,
+        'number': '№1-5',
+        'title': 'Дороги',
+        'completed': False,
+        'pdf_url': 'https://smallpdf.com/ru/file#s=97ea26c5-15dd-4208-b3e1-fba2ac976378',
+        'images': [
+            'дороги/№1-5_дороги_1.jpg', 'дороги/№1-5_дороги_2.jpg', 'дороги/№1-5_дороги_3.jpg',
+            'дороги/№1-5_дороги_4.jpg', 'дороги/№1-5_дороги_5.jpg', 'дороги/№1-5_дороги_6.jpg',
+            'дороги/№1-5_дороги_7.jpg', 'дороги/№1-5_дороги_8.jpg', 'дороги/№1-5_дороги_9.jpg',
+            'дороги/№1-5_дороги_10.jpg', 'дороги/№1-5_дороги_11.jpg', 'дороги/№1-5_дороги_12.jpg',
+            'дороги/№1-5_дороги_13.jpg'
+        ]
+    },
+    {
+        'id': 2,
+        'number': '№1-5',
+        'title': 'Квартиры',
+        'completed': False,
+        'pdf_url': 'https://smallpdf.com/ru/file#s=квартиры-pdf-link',
+        'images': [
+            'квартиры/№1-5_квартиры_1.jpg', 'квартиры/№1-5_квартиры_2.jpg', 'квартиры/№1-5_квартиры_3.jpg',
+            'квартиры/№1-5_квартиры_4.jpg', 'квартиры/№1-5_квартиры_5.jpg', 'квартиры/№1-5_квартиры_6.jpg',
+            'квартиры/№1-5_квартиры_7.jpg'
+        ]
+    },
+    {
+        'id': 3,
+        'number': '№1-5',
+        'title': 'Участки',
+        'completed': False,
+        'pdf_url': 'https://smallpdf.com/ru/file#s=участки-pdf-link',
+        'images': [
+            'участки/№1-5_участки_1.jpg', 'участки/№1-5_участки_2.jpg', 'участки/№1-5_участки_3.jpg',
+            'участки/№1-5_участки_4.jpg', 'участки/№1-5_участки_5.jpg', 'участки/№1-5_участки_6.jpg'
+        ]
+    },
+    {
+    'id': 4,
+    'number': '№1-5',
+    'title': 'Печи',
+    'completed': False,
+    'pdf_url': 'https://smallpdf.com/ru/file#s=печи-pdf-link',
+    'images': [
+        'печи/№1-5_печи_1.jpg', 'печи/№1-5_печи_2.jpg', 'печи/№1-5_печи_3.jpg', 'печи/№1-5_печи_4.jpg'
+    ]
+},
+    {
+        'id': 5,
+        'number': '№1-5',
+        'title': 'Бумага',
+        'completed': False,
+        'pdf_url': 'https://smallpdf.com/ru/file#s=бумага-pdf-link',
+        'images': [
+            'бумага/№1-5_бумага_1.jpg', 'бумага/№1-5_бумага_2.jpg', 'бумага/№1-5_бумага_3.jpg',
+            'бумага/№1-5_бумага_4.jpg'
+        ]
+    },
+    {
+        'id': 6,
+        'number': '№1-5',
+        'title': 'мобильный_интернет',
+        'completed': False,
+        'pdf_url': 'https://smallpdf.com/ru/file#s=мобильный-интернет-pdf-link',
+        'images': [
+            'мобильный_интернет/№1-5_мобильный_интернет_1.jpg',
+            'мобильный_интернет/№1-5_мобильный_интернет_2.jpg',
+            'мобильный_интернет/№1-5_мобильный_интернет_3.jpg',
+            'мобильный_интернет/№1-5_мобильный_интернет_4.jpg',
+            'мобильный_интернет/№1-5_мобильный_интернет_5.jpg',
+            'мобильный_интернет/№1-5_мобильный_интернет_6.jpg'
+        ]
+    },
+    {
+        'id': 7,
+        'number': '№1-5',
+        'title': 'Шины',
+        'completed': False,
+        'pdf_url': 'https://smallpdf.com/ru/file#s=шины-pdf-link',
+        'images': [
+            'шины/№1-5_шины_1.jpg', 'шины/№1-5_шины_2.jpg', 'шины/№1-5_шины_3.jpg',
+            'шины/№1-5_шины_4.jpg'
+        ]
+    }
 ]
 
 
@@ -84,16 +161,6 @@ def tasks_1_5_page():
     return render_template('tasks_1_5.html', tasks=tasks_1_5)
 
 
-@app.route('/topic_detail/<int:topic_id>')
-def topic_detail(topic_id):
-    """Страница с деталями темы (для №6-№25)"""
-    topic = next((t for t in math_topics if t['id'] == topic_id), None)
-    if topic:
-        return render_template('topic_detail.html', topic=topic)
-    else:
-        return "Тема не найдена", 404
-
-
 @app.route('/task_detail/<int:task_id>')
 def task_detail(task_id):
     """Страница с деталями задачи (для №1-5)"""
@@ -102,6 +169,16 @@ def task_detail(task_id):
         return render_template('task_detail.html', task=task)
     else:
         return "Задача не найдена", 404
+
+
+@app.route('/topic_detail/<int:topic_id>')
+def topic_detail(topic_id):
+    """Страница с деталями темы (для №6-№25)"""
+    topic = next((t for t in math_topics if t['id'] == topic_id), None)
+    if topic:
+        return render_template('topic_detail.html', topic=topic)
+    else:
+        return "Тема не найдена", 404
 
 
 @app.route('/start_lesson')
