@@ -5,6 +5,322 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ task.title }} - MathGym</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container-full {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 2px solid #eee;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+        }
+
+        .level-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #5a6268;
+        }
+
+        .module-header-full {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .module-header-full h1 {
+            font-size: 2.8em;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .module-subtitle {
+            font-size: 1.4em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .pdf-viewer-section-full {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .pdf-viewer-section-full h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.4em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .pdf-container-full {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .pdf-frame-full {
+            border: none;
+        }
+
+        .pdf-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pdf-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+        }
+
+        .pdf-button:hover {
+            background: #5a6fd8;
+        }
+
+        .gallery-section-full {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .gallery-section-full h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.4em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .gallery-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item-full {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .gallery-item-full:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .gallery-item-full img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            background: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 80%;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ccc;
+        }
+
+        #modalCaption {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .modal-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .modal-button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .completion-section-full {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .complete-button {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .complete-button:active {
+            transform: translateY(0);
+        }
+
+        .bottom-nav-full {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            border-top: 1px solid #eee;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #666;
+            font-size: 1.5em;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: #f8f9fa;
+            color: #667eea;
+        }
+
+        .nav-item.active {
+            color: #667eea;
+            background: #f0f2ff;
+        }
+    </style>
 </head>
 <body>
     <div class="container-full">
@@ -23,25 +339,7 @@
             <div class="module-subtitle">{{ task.title }}</div>
         </div>
 
-        <!-- PDF просмотрщик -->
-        <div class="pdf-viewer-section-full">
-            <h3>Условие задачи</h3>
-            <div class="pdf-container-full">
-                <iframe
-                    src="{{ task.pdf_url }}"
-                    width="100%"
-                    height="500"
-                    frameborder="0"
-                    class="pdf-frame-full">
-                </iframe>
-            </div>
-            <div class="pdf-controls">
-                <button class="pdf-button" onclick="rotatePDF()">🔄 Повернуть</button>
-                <button class="pdf-button" onclick="downloadPDF()">📥 Скачать</button>
-                <button class="pdf-button" onclick="zoomIn()">🔍 Увеличить</button>
-                <button class="pdf-button" onclick="zoomOut()">🔎 Уменьшить</button>
-            </div>
-        </div>
+
 
         <!-- Галерея решений -->
         <div class="gallery-section-full">
@@ -51,7 +349,8 @@
                 <div class="gallery-item-full" onclick="openModal(this)">
                     <img src="{{ url_for('static', filename='images/' + task.images[i]) }}"
                          alt="Решение {{ i+1 }}"
-                         data-index="{{ i }}">
+                         data-index="{{ i }}"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjZjhmOWZhIi8+Cjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0IiBmaWxsPSIjNjY2IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPlJlc29sdXRpb24ge3sgaSsxIH19PC90ZXh0Pgo8L3N2Zz4K'">
                     <div class="image-caption">
                         {% if i == 0 %}Решение шаг 1
                         {% elif i == 1 %}Решение шаг 2
@@ -95,7 +394,7 @@
         <!-- Нижняя навигация -->
         <nav class="bottom-nav-full">
             <a href="/" class="nav-item">🏠</a>
-            <a href="/tasks_1_5" class="nav-item">📚</a>
+            <a href="/math_topics" class="nav-item active">📚</a>
             <a href="#" class="nav-item">👥</a>
             <a href="#" class="nav-item">🏆</a>
             <a href="#" class="nav-item">⚙️</a>
@@ -163,7 +462,8 @@
         }
 
         function completeTask(taskId) {
-            fetch(`/complete_task/${taskId}`)
+            const taskNumber = "{{ task.number|replace('№', '') }}";
+            fetch(`/complete_task/${taskNumber}/${taskId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -172,7 +472,13 @@
                 })
                 .then(data => {
                     alert(data.message);
-                    setTimeout(() => window.location.href = '/tasks_1_5', 1500);
+                    setTimeout(() => {
+                        if (taskNumber === '1-5') {
+                            window.location.href = '/tasks_1_5';
+                        } else {
+                            window.location.href = '/tasks_' + taskNumber;
+                        }
+                    }, 1500);
                 })
                 .catch(error => {
                     alert('Ошибка при завершении задачи: ' + error.message);
@@ -199,6 +505,14 @@
                     closeModal();
                 }
             }
+        });
+
+        // Предзагрузка изображений для плавного перехода
+        document.addEventListener('DOMContentLoaded', function() {
+            images.forEach(img => {
+                const preload = new Image();
+                preload.src = img.src;
+            });
         });
     </script>
 </body>

@@ -130,20 +130,53 @@
         </nav>
     </div>
 
-    <script>
-        function goBack() {
-            window.location.href = '/';
-        }
+        <script>
+    function goBack() {
+        window.location.href = '/';
+    }
 
-        function openTopic(topicId) {
-            if (topicId === 1) {
-                // Для №1-5 открываем страницу с 7 задачами
-                window.location.href = '/tasks_1_5';
+    function openTopic(topicId) {
+        if (topicId === 1) {
+            // Для №1-5 открываем страницу с 7 задачами
+            window.location.href = '/tasks_1_5';
+        } else {
+            // Для всех остальных тем (№6-№25) сразу открываем задачу с изображениями
+            // Преобразуем topicId в task_number
+            const taskNumber = getTaskNumber(topicId);
+            if (taskNumber) {
+                window.location.href = '/task_detail/' + taskNumber + '/1';
             } else {
-                // Для остальных тем - обычная страница
-                window.location.href = '/topic_detail/' + topicId;
+                alert('Задача для этой темы еще не добавлена');
             }
         }
-    </script>
+    }
+
+    // Функция для преобразования topicId в task_number
+    function getTaskNumber(topicId) {
+        const mapping = {
+            2: '6',
+            3: '7',
+            4: '8',
+            5: '9',
+            6: '10',
+            7: '11',
+            8: '12',
+            9: '13',
+            10: '14',
+            11: '15',
+            12: '16',
+            13: '17',
+            14: '18',
+            15: '19',
+            16: '20',
+            17: '21',
+            18: '22',
+            19: '23',
+            20: '24',
+            21: '25'
+        };
+        return mapping[topicId];
+    }
+</script>
 </body>
 </html>
