@@ -27,15 +27,46 @@ practice_answers = {
     '6': {
         '1': {
             'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9', 'ответ10', 'ответ11', 'ответ12', 'ответ13', 'ответ14', 'ответ15', 'ответ16', 'ответ17'],  # Правильные ответы для 4 изображений
-            'user_answers': [None, None, None, None]  # Ответы пользователя
+            'user_answers': [None] * 17 # Ответы пользователя
         }
     },
     '7': {
         '1': {
             'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9', 'ответ10'],
-            'user_answers': [None] * 10
+            'user_answers': [None] * 15
         }
     },
+    '8': {
+            '1': {
+                'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9', 'ответ10'],
+                'user_answers': [None] * 10
+            }
+        },
+    '9': {
+                '1': {
+                    'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5'],
+                    'user_answers': [None] * 5
+                }
+            },
+    '10': {
+                    '1': {
+                        'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9'],
+                        'user_answers': [None] * 9
+                    }
+                },
+    '11': {
+                        '1': {
+                            'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9'],
+                            'user_answers': [None] * 9
+                        }
+                    },
+    '12': {
+                            '1': {
+                                'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9', 'ответ10'],
+                                'user_answers': [None] * 10
+                            }
+                        },
+
     # Добавьте аналогично для остальных номеров...
 }
 
@@ -47,6 +78,16 @@ def get_correct_answers(task_number, task_id):
         return ['1,55', '2,05', '10,1', '10,5', '10,1', '3,3', '1,325', '6,2', '2', '0,5', '9', '0,8', '8', '-0,12', '-6,25','0,7305', '1,875']
     elif task_number == '7':
         return ['4', '3', '3', '2', '4', '3', '3', '3', '2', '3', '3', '4', '1', '1', '3']
+    elif task_number == '8':
+        return ['200', '0,5', '3', '7', '8', '4', '4,9', '900', '20', '312']
+    elif task_number == '9':
+        return ['-1,5', '-9,5', '8', '-1', '14']
+    elif task_number == '10':
+        return ['0,5', '0,7', '0,006', '0,2', '0,75', '0,975', '0,25', '0,975', '0,84']
+    elif task_number == '11':
+        return ['312', '321', '231', '213', '312', '321', '132', '123', '132']
+    elif task_number == '12':
+        return ['34700', '–49', '45', '5880', '30', '0,0242', '6', '5', '6', '9,9']
     # Добавьте для остальных номеров...
     return ['ответ'] * 10
 
@@ -903,9 +944,16 @@ practice_tasks_8 = [
         'title': 'Числа, вычисления и алгебраические выражения - Практика',
         'completed': False,
         'images': [
-            'practice/№8/№8_практика_1.jpg',
-            'practice/№8/№8_практика_2.jpg',
-            'practice/№8/№8_практика_3.jpg'
+            'practice/№8/1.png',
+            'practice/№8/2.png',
+            'practice/№8/3.png',
+            'practice/№8/4.png',
+            'practice/№8/5.png',
+            'practice/№8/6.png',
+            'practice/№8/7.png',
+            'practice/№8/8.png',
+            'practice/№8/9.png',
+            'practice/№8/10.png'
         ]
     }
 ]
@@ -917,8 +965,11 @@ practice_tasks_9 = [
         'title': 'Уравнения - Практика',
         'completed': False,
         'images': [
-            'practice/№9/№9_практика_1.jpg',
-            'practice/№9/№9_практика_2.jpg'
+            'practice/№9/1.png',
+            'practice/№9/2.png',
+            'practice/№9/3.png',
+            'practice/№9/4.png',
+            'practice/№9/5.png'
         ]
     }
 ]
@@ -930,9 +981,56 @@ practice_tasks_10 = [
         'title': 'Теория вероятностей - Практика',
         'completed': False,
         'images': [
-            'practice/№10/№10_практика_1.jpg',
-            'practice/№10/№10_практика_2.jpg',
-            'practice/№10/№10_практика_3.jpg'
+            'practice/№10/1.png',
+            'practice/№10/2.png',
+            'practice/№10/3.png',
+            'practice/№10/4.png',
+            'practice/№10/5.png',
+            'practice/№10/6.png',
+            'practice/№10/7.png',
+            'practice/№10/8.png',
+            'practice/№10/9.png'
+        ]
+    }
+]
+
+practice_tasks_11 = [
+    {
+        'id': 1,
+        'number': '№11',
+        'title': 'Графики функций - Практика',
+        'completed': False,
+        'images': [
+            'practice/№11/1.png',
+            'practice/№11/2.png',
+            'practice/№11/3.png',
+            'practice/№11/4.png',
+            'practice/№11/5.png',
+            'practice/№11/6.png',
+            'practice/№11/7.png',
+            'practice/№11/8.png',
+            'practice/№11/9.png'
+        ]
+    }
+]
+
+practice_tasks_12 = [
+    {
+        'id': 1,
+        'number': '№12',
+        'title': 'Расчеты по формулам - Практика',
+        'completed': False,
+        'images': [
+            'practice/№12/1.png',
+            'practice/№12/2.png',
+            'practice/№12/3.png',
+            'practice/№12/4.png',
+            'practice/№12/5.png',
+            'practice/№12/6.png',
+            'practice/№12/7.png',
+            'practice/№12/8.png',
+            'practice/№12/9.png',
+            'practice/№12/10.png'
         ]
     }
 ]
@@ -944,8 +1042,8 @@ practice_tasks = {
     '8': practice_tasks_8,
     '9': practice_tasks_9,
     '10': practice_tasks_10,
-    '11': tasks_11,  # Пока используем теорию, потом замените
-    '12': tasks_12,
+    '11': practice_tasks_11,  # Пока используем теорию, потом замените
+    '12': practice_tasks_12,
     '13': tasks_13,
     '14': tasks_14,
     '15': tasks_15,
