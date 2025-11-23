@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify
 from flask import Flask, render_template, jsonify, redirect, url_for
 app = Flask(__name__)
+from flask import request  # Добавьте этот импорт в начало файла
 
 # Храним состояние игры
 game_state = {
@@ -20,6 +21,34 @@ game_state = {
         {'number': 6, 'title': 'Экзамен', 'type': 'exam', 'completed': False, 'locked': True, 'stars': 0, 'xp': 45}
     ]
 }
+
+# Добавим в начало файла после game_state
+practice_answers = {
+    '6': {
+        '1': {
+            'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9', 'ответ10', 'ответ11', 'ответ12', 'ответ13', 'ответ14', 'ответ15', 'ответ16', 'ответ17'],  # Правильные ответы для 4 изображений
+            'user_answers': [None, None, None, None]  # Ответы пользователя
+        }
+    },
+    '7': {
+        '1': {
+            'correct_answers': ['ответ1', 'ответ2', 'ответ3', 'ответ4', 'ответ5', 'ответ6', 'ответ7', 'ответ8', 'ответ9', 'ответ10'],
+            'user_answers': [None] * 10
+        }
+    },
+    # Добавьте аналогично для остальных номеров...
+}
+
+# Функция для получения правильных ответов (позже вы их заполните)
+def get_correct_answers(task_number, task_id):
+    # Здесь будут реальные правильные ответы
+    # Пока заглушки
+    if task_number == '6':
+        return ['1,55', '2,05', '10,1', '10,5', '10,1', '3,3', '1,325', '6,2', '2', '0,5', '9', '0,8', '8', '-0,12', '-6,25','0,7305', '1,875']
+    elif task_number == '7':
+        return ['A', 'B', 'C', 'D', 'A', 'B', 'C', 'D', 'A', 'B']
+    # Добавьте для остальных номеров...
+    return ['ответ'] * 10
 
 # 21 тема для сетки ОГЭ
 math_topics = [
@@ -792,6 +821,351 @@ def complete_task(task_number, task_id):
             'action': 'task_not_found'
         }), 404
 
+@app.route('/practice_task/25/1')
+def practice_task_25():
+    """Страница с практическим заданием №25"""
+    tasks_list = all_tasks.get('25')
+    if not tasks_list:
+        return "Номер задачи '25' не найден", 404
+
+    task = next((t for t in tasks_list if t['id'] == 1), None)
+    if task:
+        correct_answers = get_correct_answers('25', 1)
+        return render_template('practice_task.html',
+                             task=task,
+                             correct_answers=correct_answers,
+                             task_number='25')
+    else:
+        return "Задача с ID 1 не найдена", 404
+
+# Практические задания №6-№25 (отдельные от теории)
+practice_tasks_6 = [
+    {
+        'id': 1,
+        'number': '№6',
+        'title': 'Числа и вычисления - Практика',
+        'completed': False,
+        'images': [
+            'practice/№6/1.png',
+            'practice/№6/2.png',
+            'practice/№6/3.png',
+            'practice/№6/4.png',
+            'practice/№6/5.png',
+            'practice/№6/6.png',
+            'practice/№6/7.png',
+            'practice/№6/8.png',
+            'practice/№6/9.png',
+            'practice/№6/10.png',
+            'practice/№6/11.png',
+            'practice/№6/12.png',
+            'practice/№6/13.png',
+            'practice/№6/14.png',
+            'practice/№6/15.png',
+            'practice/№6/16.png',
+            'practice/№6/17.png'
+        ]
+    }
+]
+
+practice_tasks_7 = [
+    {
+        'id': 1,
+        'number': '№7',
+        'title': 'Числовые неравенства, координатная прямая - Практика',
+        'completed': False,
+        'images': [
+            'practice/№7/№7_практика_1.jpg',
+            'practice/№7/№7_практика_2.jpg',
+            'practice/№7/№7_практика_3.jpg',
+            'practice/№7/№7_практика_4.jpg',
+            'practice/№7/№7_практика_5.jpg'
+        ]
+    }
+]
+
+# Добавьте аналогично для остальных номеров...
+practice_tasks_8 = [
+    {
+        'id': 1,
+        'number': '№8',
+        'title': 'Числа, вычисления и алгебраические выражения - Практика',
+        'completed': False,
+        'images': [
+            'practice/№8/№8_практика_1.jpg',
+            'practice/№8/№8_практика_2.jpg',
+            'practice/№8/№8_практика_3.jpg'
+        ]
+    }
+]
+
+practice_tasks_9 = [
+    {
+        'id': 1,
+        'number': '№9',
+        'title': 'Уравнения - Практика',
+        'completed': False,
+        'images': [
+            'practice/№9/№9_практика_1.jpg',
+            'practice/№9/№9_практика_2.jpg'
+        ]
+    }
+]
+
+practice_tasks_10 = [
+    {
+        'id': 1,
+        'number': '№10',
+        'title': 'Теория вероятностей - Практика',
+        'completed': False,
+        'images': [
+            'practice/№10/№10_практика_1.jpg',
+            'practice/№10/№10_практика_2.jpg',
+            'practice/№10/№10_практика_3.jpg'
+        ]
+    }
+]
+
+# Словарь практических задач
+practice_tasks = {
+    '6': practice_tasks_6,
+    '7': practice_tasks_7,
+    '8': practice_tasks_8,
+    '9': practice_tasks_9,
+    '10': practice_tasks_10,
+    '11': tasks_11,  # Пока используем теорию, потом замените
+    '12': tasks_12,
+    '13': tasks_13,
+    '14': tasks_14,
+    '15': tasks_15,
+    '16': tasks_16,
+    '17': tasks_17,
+    '18': tasks_18,
+    '19': tasks_19,
+    '20': tasks_20,
+    '21': tasks_21,
+    '22': tasks_22,
+    '23': tasks_23,
+    '24': tasks_24,
+    '25': tasks_21  # Временная заглушка
+}
+
+@app.route('/practice_topics')
+def practice_topics_page():
+    """Страница с темами для практики"""
+    return render_template('practice_topics.html', topics=math_topics)
+
+@app.route('/practice_tasks_1_5')
+def practice_tasks_1_5_page():
+    """Страница с задачами №1-5 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_1_5, topic_number='1-5', topic_title='Группы задач по тексту')
+
+@app.route('/practice_task_detail/<task_number>/<int:task_id>')
+def practice_task_detail(task_number, task_id):
+    """Страница с деталями задачи для практики"""
+    tasks_list = all_tasks.get(task_number)
+    if not tasks_list:
+        return f"Номер задачи '{task_number}' не найден", 404
+
+    task = next((t for t in tasks_list if t['id'] == task_id), None)
+    if task:
+        return render_template('practice_task_detail.html', task=task)
+    else:
+        return f"Задача с ID {task_id} не найдена", 404
+
+@app.route('/complete_practice_task/<task_number>/<int:task_id>')
+def complete_practice_task(task_number, task_id):
+    """API: Завершить задачу для практики"""
+    tasks_list = all_tasks.get(task_number)
+    if not tasks_list:
+        return jsonify({
+            'message': '❌ Номер задачи не найден',
+            'action': 'task_number_not_found'
+        }), 404
+
+    task = next((t for t in tasks_list if t['id'] == task_id), None)
+    if task:
+        game_state['gems'] += 15
+        return jsonify({
+            'message': f'🎉 Практика по задаче "{task["title"]}" завершена! +15 💎',
+            'action': 'practice_task_completed',
+            'gems': game_state['gems']
+        })
+    else:
+        return jsonify({
+            'message': '❌ Задача не найдена',
+            'action': 'task_not_found'
+        }), 404
+
+
+@app.route('/empty_task/<task_number>/<int:task_id>')
+def empty_task(task_number, task_id):
+    """Пустая страница для задач (временно)"""
+    tasks_list = all_tasks.get(task_number)
+    if not tasks_list:
+        return f"Номер задачи '{task_number}' не найден", 404
+
+    task = next((t for t in tasks_list if t['id'] == task_id), None)
+    if task:
+        return render_template('empty_task.html', task=task)
+    else:
+        return f"Задача с ID {task_id} не найдена", 404
+
+@app.route('/empty_practice_task/<task_number>/<int:task_id>')
+def empty_practice_task(task_number, task_id):
+    """Пустая страница для практики (временно)"""
+    tasks_list = all_tasks.get(task_number)
+    if not tasks_list:
+        return f"Номер задачи '{task_number}' не найден", 404
+
+    task = next((t for t in tasks_list if t['id'] == task_id), None)
+    if task:
+        return render_template('empty_practice_task.html', task=task)
+    else:
+        return f"Задача с ID {task_id} не найдена", 404
+
+
+@app.route('/practice_tasks_6')
+def practice_tasks_6_page():
+    """Страница с задачами №6 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_6, topic_number='6', topic_title='Числа и вычисления')
+
+@app.route('/practice_tasks_7')
+def practice_tasks_7_page():
+    """Страница с задачами №7 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_7, topic_number='7', topic_title='Числовые неравенства, координатная прямая')
+
+@app.route('/practice_tasks_8')
+def practice_tasks_8_page():
+    """Страница с задачами №8 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_8, topic_number='8', topic_title='Числа, вычисления и алгебраические выражения')
+
+@app.route('/practice_tasks_9')
+def practice_tasks_9_page():
+    """Страница с задачами №9 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_9, topic_number='9', topic_title='Уравнения')
+
+@app.route('/practice_tasks_10')
+def practice_tasks_10_page():
+    """Страница с задачами №10 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_10, topic_number='10', topic_title='Теория вероятностей')
+
+@app.route('/practice_tasks_11')
+def practice_tasks_11_page():
+    """Страница с задачами №11 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_11, topic_number='11', topic_title='Графики функций')
+
+@app.route('/practice_tasks_12')
+def practice_tasks_12_page():
+    """Страница с задачами №12 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_12, topic_number='12', topic_title='Расчеты по формулам')
+
+@app.route('/practice_tasks_13')
+def practice_tasks_13_page():
+    """Страница с задачами №13 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_13, topic_number='13', topic_title='Неравенства, системы неравенств')
+
+@app.route('/practice_tasks_14')
+def practice_tasks_14_page():
+    """Страница с задачами №14 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_14, topic_number='14', topic_title='Прогрессии')
+
+@app.route('/practice_tasks_15')
+def practice_tasks_15_page():
+    """Страница с задачами №15 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_15, topic_number='15', topic_title='Треугольники')
+
+@app.route('/practice_tasks_16')
+def practice_tasks_16_page():
+    """Страница с задачами №16 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_16, topic_number='16', topic_title='Окружности')
+
+@app.route('/practice_tasks_17')
+def practice_tasks_17_page():
+    """Страница с задачами №17 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_17, topic_number='17', topic_title='Четырёхугольники')
+
+@app.route('/practice_tasks_18')
+def practice_tasks_18_page():
+    """Страница с задачами №18 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_18, topic_number='18', topic_title='Фигуры на клетчатой плоскости')
+
+@app.route('/practice_tasks_19')
+def practice_tasks_19_page():
+    """Страница с задачами №19 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_19, topic_number='19', topic_title='Анализ геометрических высказываний')
+
+@app.route('/practice_tasks_20')
+def practice_tasks_20_page():
+    """Страница с задачами №20 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_20, topic_number='20', topic_title='Алгебраические выражения, уравнения, неравенства и их системы')
+
+@app.route('/practice_tasks_21')
+def practice_tasks_21_page():
+    """Страница с задачами №21 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_21, topic_number='21', topic_title='Текстовые задачи')
+
+@app.route('/practice_tasks_22')
+def practice_tasks_22_page():
+    """Страница с задачами №22 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_22, topic_number='22', topic_title='Графики функций')
+
+@app.route('/practice_tasks_23')
+def practice_tasks_23_page():
+    """Страница с задачами №23 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_23, topic_number='23', topic_title='Геометрические задачи на вычисление')
+
+@app.route('/practice_tasks_24')
+def practice_tasks_24_page():
+    """Страница с задачами №24 для практики"""
+    return render_template('practice_tasks_1_5.html', tasks=tasks_24, topic_number='24', topic_title='Геометрические задачи на доказательство')
+
+@app.route('/practice_development/<int:topic_id>')
+def practice_development(topic_id):
+    """Страница "в разработке" для практики"""
+    topic = next((t for t in math_topics if t['id'] == topic_id), None)
+    if topic:
+        return render_template('practice_development.html', topic=topic)
+    else:
+        return "Тема не найдена", 404
+
+@app.route('/practice_task/<task_number>/<int:task_id>')
+def practice_task(task_number, task_id):
+    """Страница с практическим заданием"""
+    # Используем отдельные задачи для практики
+    tasks_list = practice_tasks.get(task_number)
+    if not tasks_list:
+        return f"Практика для номера '{task_number}' не найдена", 404
+
+    task = next((t for t in tasks_list if t['id'] == task_id), None)
+    if task:
+        correct_answers = get_correct_answers(task_number, task_id)
+        return render_template('practice_task.html',
+                             task=task,
+                             correct_answers=correct_answers,
+                             task_number=task_number)
+    else:
+        return f"Задача с ID {task_id} не найдена", 404
+
+
+@app.route('/complete_practice/<task_number>/<int:task_id>', methods=['POST'])
+def complete_practice(task_number, task_id):
+    """API: Завершить практику"""
+    data = request.json
+    user_answers = data.get('answers', [])
+    correct_count = data.get('correct_count', 0)
+    total_count = data.get('total_count', 0)
+
+    # Начисляем самоцветы
+    gems_earned = max(5, correct_count * 2)  # Минимум 5, плюс за правильные ответы
+    game_state['gems'] += gems_earned
+
+    return jsonify({
+        'message': f'🎉 Практика завершена! Правильно {correct_count} из {total_count}. +{gems_earned} 💎',
+        'action': 'practice_completed',
+        'gems': game_state['gems'],
+        'correct_count': correct_count,
+        'total_count': total_count
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)

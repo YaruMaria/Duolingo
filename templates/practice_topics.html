@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика ОГЭ - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .practice-badge {
+            background: linear-gradient(135deg, #ff6b00, #ff3d00);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .topic-card-5x5 {
+            position: relative;
+        }
+
+        .topic-card-5x5:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Практика</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Заголовок -->
+        <div class="module-header">
+            <h1>Практика ОГЭ</h1>
+            <div class="module-subtitle">Тренируйтесь на реальных заданиях</div>
+        </div>
+
+        <!-- Информация о практике -->
+        <div class="info-section" style="padding: 0 20px 20px;">
+            <div style="background: #d1fae5; padding: 15px; border-radius: 12px; border-left: 4px solid #10b981;">
+                <h4 style="color: #047857; margin-bottom: 8px;">🎯 Режим практики</h4>
+                <p style="color: #065f46; font-size: 14px; margin: 0;">
+                    Решайте задачи без ограничений по времени. Получайте подробные решения и объяснения.
+                </p>
+            </div>
+        </div>
+
+        <!-- Сетка тем 5x5 -->
+        <div class="topics-grid-5x5">
+            <!-- Ряд 1 -->
+            <div class="topic-card-5x5" onclick="openPracticeTopic(1)">
+                <div class="topic-number-5x5">№1-5</div>
+                <div class="topic-title-5x5">Группы задач по тексту</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(2)">
+                <div class="topic-number-5x5">№6</div>
+                <div class="topic-title-5x5">Числа и вычисления</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(3)">
+                <div class="topic-number-5x5">№7</div>
+                <div class="topic-title-5x5">Числовые неравенства, координатная прямая</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(4)">
+                <div class="topic-number-5x5">№8</div>
+                <div class="topic-title-5x5">Числа, вычисления и алгебраические выражения</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(5)">
+                <div class="topic-number-5x5">№9</div>
+                <div class="topic-title-5x5">Уравнения</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+
+            <!-- Ряд 2 -->
+            <div class="topic-card-5x5" onclick="openPracticeTopic(6)">
+                <div class="topic-number-5x5">№10</div>
+                <div class="topic-title-5x5">Теория вероятностей</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(7)">
+                <div class="topic-number-5x5">№11</div>
+                <div class="topic-title-5x5">Графики функций</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(8)">
+                <div class="topic-number-5x5">№12</div>
+                <div class="topic-title-5x5">Расчеты по формулам</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(9)">
+                <div class="topic-number-5x5">№13</div>
+                <div class="topic-title-5x5">Неравенства, системы неравенств</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(10)">
+                <div class="topic-number-5x5">№14</div>
+                <div class="topic-title-5x5">Прогрессии</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+
+            <!-- Ряд 3 -->
+            <div class="topic-card-5x5" onclick="openPracticeTopic(11)">
+                <div class="topic-number-5x5">№15</div>
+                <div class="topic-title-5x5">Треугольники</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(12)">
+                <div class="topic-number-5x5">№16</div>
+                <div class="topic-title-5x5">Окружности</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(13)">
+                <div class="topic-number-5x5">№17</div>
+                <div class="topic-title-5x5">Четырёхугольники</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(14)">
+                <div class="topic-number-5x5">№18</div>
+                <div class="topic-title-5x5">Фигуры на клетчатой плоскости</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(15)">
+                <div class="topic-number-5x5">№19</div>
+                <div class="topic-title-5x5">Анализ геометрических высказываний</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+
+            <!-- Ряд 4 -->
+            <div class="topic-card-5x5" onclick="openPracticeTopic(16)">
+                <div class="topic-number-5x5">№20</div>
+                <div class="topic-title-5x5">Алгебраические выражения, уравнения, неравенства и их системы</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(17)">
+                <div class="topic-number-5x5">№21</div>
+                <div class="topic-title-5x5">Текстовые задачи</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(18)">
+                <div class="topic-number-5x5">№22</div>
+                <div class="topic-title-5x5">Графики функций</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(19)">
+                <div class="topic-number-5x5">№23</div>
+                <div class="topic-title-5x5">Геометрические задачи на вычисление</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+            <div class="topic-card-5x5" onclick="openPracticeTopic(20)">
+                <div class="topic-number-5x5">№24</div>
+                <div class="topic-title-5x5">Геометрические задачи на доказательство</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+
+            <!-- Ряд 5 -->
+            <div class="topic-card-5x5" onclick="openPracticeTopic(21)">
+                <div class="topic-number-5x5">№25</div>
+                <div class="topic-title-5x5">Геометрические задачи повышенной сложности</div>
+                <div class="practice-badge">Практика</div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="#" class="nav-item active">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = '/';
+        }
+
+        function openPracticeTopic(topicId) {
+            // Для тем №6-№25 открываем страницы практики с полями для ответов
+            const practiceRoutes = {
+                2: '/practice_task/6/1',  // №6
+                3: '/practice_task/7/1',  // №7
+                4: '/practice_task/8/1',  // №8
+                5: '/practice_task/9/1',  // №9
+                6: '/practice_task/10/1', // №10
+                7: '/practice_task/11/1', // №11
+                8: '/practice_task/12/1', // №12
+                9: '/practice_task/13/1', // №13
+                10: '/practice_task/14/1', // №14
+                11: '/practice_task/15/1', // №15
+                12: '/practice_task/16/1', // №16
+                13: '/practice_task/17/1', // №17
+                14: '/practice_task/18/1', // №18
+                15: '/practice_task/19/1', // №19
+                16: '/practice_task/20/1', // №20
+                17: '/practice_task/21/1', // №21
+                18: '/practice_task/22/1', // №22
+                19: '/practice_task/23/1', // №23
+                20: '/practice_task/24/1', // №24
+                21: '/practice_task/25/1'  // №25
+            };
+
+            if (topicId === 1) {
+                // №1-5 оставляем как есть (пустая страница)
+                window.location.href = '/practice_development/1';
+            } else {
+                const route = practiceRoutes[topicId];
+                if (route) {
+                    window.location.href = route;
+                } else {
+                    window.location.href = '/practice_development/' + topicId;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

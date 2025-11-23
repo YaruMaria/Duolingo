@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика: {{ task.title }} - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .practice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .task-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #ff6b00, #ff3d00);
+            color: white;
+            border-radius: 15px;
+        }
+
+        .task-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .answer-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff6b00;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        .answer-input:focus {
+            border-color: #ff6b00;
+            outline: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b00, #ff3d00);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+        }
+
+        .result-section {
+            display: none;
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .incorrect-answer {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .correct-answer {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .task-counter {
+            text-align: center;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Практика {{ task.number }}</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <div class="practice-container">
+            <!-- Заголовок -->
+            <div class="task-header">
+                <h1>Практика: {{ task.number }}</h1>
+                <div class="module-subtitle">{{ task.title }}</div>
+            </div>
+
+            <!-- Задания с полями для ответов -->
+            <div id="tasks-container">
+                {% for i in range(task.images|length) %}
+                <div class="task-counter">Задание {{ i + 1 }} из {{ task.images|length }}</div>
+                <img src="{{ url_for('static', filename='images/' + task.images[i]) }}"
+                     alt="Задание {{ i + 1 }}"
+                     class="task-image"
+                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjZjhmOWZhIi8+Cjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0IiBmaWxsPSIjNjY2IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPlRhc2sgeysgaSsxIH19PC90ZXh0Pgo8L3N2Zz4K'">
+
+                <div class="answer-section">
+                    <label for="answer-{{ i }}">Ваш ответ:</label>
+                    <input type="text"
+                           id="answer-{{ i }}"
+                           class="answer-input"
+                           placeholder="Введите ваш ответ..."
+                           data-correct="{{ correct_answers[i] if i < correct_answers|length else '' }}">
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Кнопка проверки -->
+            <button class="submit-btn" onclick="checkAnswers()">
+                ✅ Проверить ответы
+            </button>
+
+            <!-- Результаты -->
+            <div id="result-section" class="result-section">
+                <h3>Результаты проверки:</h3>
+                <div id="results-list"></div>
+                <button class="submit-btn" onclick="completePractice()" style="background: #4CAF50; margin-top: 20px;">
+                    🎉 Завершить практику
+                </button>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="/practice_topics" class="nav-item active">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function checkAnswers() {
+            const inputs = document.querySelectorAll('.answer-input');
+            const resultsList = document.getElementById('results-list');
+            const resultSection = document.getElementById('result-section');
+
+            let correctCount = 0;
+            let totalCount = inputs.length;
+
+            resultsList.innerHTML = '';
+
+            inputs.forEach((input, index) => {
+                const userAnswer = input.value.trim();
+                const correctAnswer = input.getAttribute('data-correct');
+
+                const resultItem = document.createElement('div');
+                resultItem.style.marginBottom = '10px';
+                resultItem.style.padding = '10px';
+                resultItem.style.borderRadius = '5px';
+                resultItem.style.backgroundColor = '#fff';
+
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    resultItem.innerHTML = `✅ Задание ${index + 1}: <span class="correct-answer">Правильно!</span>`;
+                    resultItem.style.borderLeft = '4px solid #4CAF50';
+                    correctCount++;
+                } else {
+                    resultItem.innerHTML = `❌ Задание ${index + 1}: <span class="incorrect-answer">Неправильно.</span> Правильный ответ: ${correctAnswer}`;
+                    resultItem.style.borderLeft = '4px solid #f44336';
+                }
+
+                resultsList.appendChild(resultItem);
+            });
+
+            // Показываем общий результат
+            const totalResult = document.createElement('div');
+            totalResult.style.marginTop = '20px';
+            totalResult.style.padding = '15px';
+            totalResult.style.backgroundColor = '#e3f2fd';
+            totalResult.style.borderRadius = '8px';
+            totalResult.style.borderLeft = '4px solid #2196F3';
+            totalResult.innerHTML = `<strong>Итог: ${correctCount} из ${totalCount} заданий выполнено правильно (${Math.round(correctCount/totalCount*100)}%)</strong>`;
+
+            resultsList.appendChild(totalResult);
+            resultSection.style.display = 'block';
+
+            // Прокручиваем к результатам
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function completePractice() {
+            const taskNumber = "{{ task_number }}";
+            alert('🎉 Практика завершена! +15 💎');
+
+            // Здесь можно добавить запрос к серверу для сохранения прогресса
+            setTimeout(() => {
+                window.location.href = '/practice_topics';
+            }, 1500);
+        }
+
+        // Автопрокрутка к первому незаполненному полю
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.answer-input');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    input.focus();
+                    break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

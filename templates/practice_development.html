@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика {{ topic.number }} - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .development-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .development-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .development-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .development-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .topic-info {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ff6b00;
+        }
+
+        .back-button-practice {
+            background: #ff6b00;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button-practice:hover {
+            background: #ff3d00;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Практика</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Страница "в разработке" -->
+        <div class="development-container">
+            <div class="development-icon">🔧</div>
+            <h1 class="development-title">Задание в разработке</h1>
+            <p class="development-subtitle">Практика для этой темы скоро будет доступна</p>
+
+            <div class="topic-info">
+                <h3>{{ topic.number }} - {{ topic.title }}</h3>
+                <p>Мы работаем над созданием практических заданий для этой темы.</p>
+                <p>Скоро здесь появятся интересные задачи для тренировки!</p>
+            </div>
+
+            <button class="back-button-practice" onclick="goBack()">
+                Вернуться к практике
+            </button>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="/practice_topics" class="nav-item active">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

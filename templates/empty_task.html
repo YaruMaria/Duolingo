@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.title }} - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .empty-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .empty-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .task-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Теория</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Пустая страница -->
+        <div class="empty-container">
+            <div class="empty-icon">📚</div>
+            <h1 class="empty-title">Страница в разработке</h1>
+            <p class="empty-subtitle">Теория для этой задачи скоро будет добавлена</p>
+
+            <div class="task-info">
+                <h3>{{ task.number }} - {{ task.title }}</h3>
+                <p>Количество материалов: {{ task.images|length }}</p>
+                <p>Статус: В разработке</p>
+            </div>
+
+            <button class="start-button" onclick="goBack()" style="background: #6c757d;">
+                Вернуться назад
+            </button>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="/math_topics" class="nav-item active">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

@@ -220,7 +220,7 @@
         <div class="tasks-grid">
             {% for task in tasks %}
             <div class="task-card {% if task.completed %}completed{% endif %}"
-                 onclick="openTask('{{ topic_number|default("1-5") }}', {{ task.id }})">
+                 onclick="openEmptyTask('{{ topic_number|default("1-5") }}', {{ task.id }})">
                 <div class="task-number">{{ task.number }}</div>
                 <div class="task-title">{{ task.title }}</div>
                 <div class="task-description">
@@ -250,24 +250,13 @@
 
     <script>
         function goBack() {
-            window.history.back();
+            window.location.href = '/math_topics';
         }
 
-        function openTask(taskNumber, taskId) {
-            window.location.href = `/task_detail/${taskNumber}/${taskId}`;
+        function openEmptyTask(taskNumber, taskId) {
+            // Открываем пустую страницу вместо теории
+            window.location.href = `/empty_task/${taskNumber}/${taskId}`;
         }
-
-        // Добавляем обработчики для карточек задач
-        document.addEventListener('DOMContentLoaded', function() {
-            const taskCards = document.querySelectorAll('.task-card');
-            taskCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const taskId = this.getAttribute('onclick').match(/\d+/)[0];
-                    const taskNumber = "{{ topic_number|default('1-5') }}";
-                    openTask(taskNumber, taskId);
-                });
-            });
-        });
     </script>
 </body>
 </html>

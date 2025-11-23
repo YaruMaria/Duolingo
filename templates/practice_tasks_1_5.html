@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика №{{ topic_number|default('1-5') }} - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .practice-header {
+            background: linear-gradient(135deg, #ff6b00, #ff3d00);
+            color: white;
+        }
+
+        .task-card {
+            border-left: 4px solid #ff6b00;
+        }
+
+        .task-card:hover {
+            border-left-color: #ff3d00;
+        }
+
+        .practice-badge {
+            background: #ff6b00;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Практика №{{ topic_number|default('1-5') }}</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Заголовок модуля -->
+        <div class="module-header practice-header">
+            <h1>Практика №{{ topic_number|default('1-5') }}</h1>
+            <div class="module-subtitle">{{ topic_title|default('Группы задач по тексту') }} - Тренировка</div>
+        </div>
+
+        <!-- Информация о режиме практики -->
+        <div class="info-section" style="padding: 0 20px 20px;">
+            <div style="background: #ffe4d6; padding: 15px; border-radius: 12px; border-left: 4px solid #ff6b00;">
+                <h4 style="color: #c2410c; margin-bottom: 8px;">🎯 Режим практики</h4>
+                <p style="color: #9a3412; font-size: 14px; margin: 0;">
+                    Решайте задачи в своем темпе. Получайте мгновенную проверку и подробные объяснения.
+                </p>
+            </div>
+        </div>
+
+        <!-- Сетка задач -->
+        <div class="tasks-grid">
+            {% for task in tasks %}
+            <div class="task-card {% if task.completed %}completed{% endif %}"
+                 onclick="openEmptyPracticeTask('{{ topic_number|default("1-5") }}', {{ task.id }})">
+                <div class="task-number">{{ task.number }}</div>
+                <div class="task-title">{{ task.title }}</div>
+                <div class="task-description">
+                    {{ task.images|length }} заданий для отработки
+                </div>
+                <div class="task-status">
+                    {% if task.completed %}
+                    <span class="completed-badge">✅ Завершено</span>
+                    {% else %}
+                    <span class="practice-badge">🎯 Практика</span>
+                    {% endif %}
+                    <span class="task-gems">+15 💎</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="/practice_topics" class="nav-item active">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = '/practice_topics';
+        }
+
+        function openEmptyPracticeTask(taskNumber, taskId) {
+            // Открываем пустую страницу для практики
+            window.location.href = `/empty_practice_task/${taskNumber}/${taskId}`;
+        }
+    </script>
+</body>
+</html>

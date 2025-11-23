@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика: {{ task.title }} - MathGym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .practice-header {
+            background: linear-gradient(135deg, #ff6b00, #ff3d00);
+        }
+
+        .complete-button {
+            background: linear-gradient(135deg, #ff6b00, #ff3d00);
+            box-shadow: 0 6px 0 #c2410c;
+        }
+
+        .complete-button:hover {
+            box-shadow: 0 8px 0 #c2410c;
+        }
+
+        .practice-info {
+            background: #ffe4d6;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #ff6b00;
+            margin: 20px;
+            color: #9a3412;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-full">
+        <!-- Верхняя панель -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <div class="level-badge">Практика</div>
+            </div>
+            <button class="back-button" onclick="goBack()">← Назад</button>
+        </header>
+
+        <!-- Заголовок задачи -->
+        <div class="module-header-full practice-header">
+            <h1>{{ task.number }}</h1>
+            <div class="module-subtitle">{{ task.title }} - Практика</div>
+        </div>
+
+        <!-- Информация о практике -->
+        <div class="practice-info">
+            <h4>🎯 Режим практики</h4>
+            <p>Решайте задачи в своем темпе. Используйте подсказки и проверяйте решения.</p>
+        </div>
+
+        <!-- Галерея решений -->
+        <div class="gallery-section-full">
+            <h3>Задания для практики</h3>
+            <div class="gallery-grid-full">
+                {% for i in range(task.images|length) %}
+                <div class="gallery-item-full" onclick="openModal(this)">
+                    <img src="{{ url_for('static', filename='images/' + task.images[i]) }}"
+                         alt="Задание {{ i+1 }}"
+                         data-index="{{ i }}"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjZjhmOWZhIi8+Cjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0IiBmaWxsPSIjNjY2IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPlByYWN0aWNlIHt7IGkrMSB9fTwvdGV4dD4KPC9zdmc+Cg=='">
+                    <div class="image-caption">
+                        {% if i == 0 %}Задание 1
+                        {% elif i == 1 %}Задание 2
+                        {% elif i == 2 %}Задание 3
+                        {% elif i == 3 %}Задание 4
+                        {% elif i == 4 %}Задание 5
+                        {% else %}Задание {{ i+1 }}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Модальное окно для просмотра изображений -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+            <div id="modalCaption"></div>
+            <div class="modal-controls">
+                <button class="modal-button" onclick="prevImage()">⬅️ Назад</button>
+                <button class="modal-button" onclick="nextImage()">Вперёд ➡️</button>
+            </div>
+        </div>
+
+        <!-- Кнопка завершения -->
+        <div class="completion-section-full">
+            <button class="complete-button" onclick="completePracticeTask({{ task.id }})">
+                ✅ Завершить практику
+            </button>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav-full">
+            <a href="/" class="nav-item">🏠</a>
+            <a href="/practice_topics" class="nav-item active">📚</a>
+            <a href="#" class="nav-item">👥</a>
+            <a href="#" class="nav-item">🏆</a>
+            <a href="#" class="nav-item">⚙️</a>
+        </nav>
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.gallery-item-full img');
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function openModal(element) {
+            const img = element.querySelector('img');
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const caption = document.getElementById('modalCaption');
+
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+            caption.innerHTML = element.querySelector('.image-caption').innerHTML;
+
+            currentImageIndex = parseInt(img.getAttribute('data-index'));
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            updateModalImage();
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            updateModalImage();
+        }
+
+        function updateModalImage() {
+            const modalImg = document.getElementById('modalImage');
+            const caption = document.getElementById('modalCaption');
+
+            modalImg.src = images[currentImageIndex].src;
+            caption.innerHTML = images[currentImageIndex].parentElement.querySelector('.image-caption').innerHTML;
+        }
+
+        function completePracticeTask(taskId) {
+            const taskNumber = "{{ task.number|replace('№', '') }}";
+            // Здесь можно добавить логику завершения практики
+            alert('🎉 Практика завершена! +15 💎');
+            setTimeout(() => {
+                if (taskNumber === '1-5') {
+                    window.location.href = '/practice_tasks_1_5';
+                } else {
+                    window.location.href = '/practice_topics';
+                }
+            }, 1500);
+        }
+
+        // Закрытие модального окна при клике вне изображения
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Управление клавиатурой
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('imageModal');
+            if (modal.style.display === 'block') {
+                if (event.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (event.key === 'ArrowRight') {
+                    nextImage();
+                } else if (event.key === 'Escape') {
+                    closeModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

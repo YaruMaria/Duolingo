@@ -121,10 +121,14 @@
         }
 
         // Обработчик клика на уровень
+        // В файле index.html обновим функцию handleLevelClick
         function handleLevelClick(levelNumber, levelType) {
             if (levelType === 'book') {
-                // Если это "Новая тема" - открываем страницу с темами ОГЭ
+                // Если это "Новая тема" - открываем страницу с теорией
                 window.location.href = '/math_topics';
+            } else if (levelType === 'brain') {
+                // Если это "Решение задач" - открываем страницу с практикой
+                window.location.href = '/practice_topics';
             } else {
                 // Для других типов уровней - обычная логика
                 playLevel(levelNumber);
