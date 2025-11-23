@@ -46,7 +46,7 @@ def get_correct_answers(task_number, task_id):
     if task_number == '6':
         return ['1,55', '2,05', '10,1', '10,5', '10,1', '3,3', '1,325', '6,2', '2', '0,5', '9', '0,8', '8', '-0,12', '-6,25','0,7305', '1,875']
     elif task_number == '7':
-        return ['A', 'B', 'C', 'D', 'A', 'B', 'C', 'D', 'A', 'B']
+        return ['4', '3', '3', '2', '4', '3', '3', '3', '2', '3', '3', '4', '1', '1', '3']
     # Добавьте для остальных номеров...
     return ['ответ'] * 10
 
@@ -874,11 +874,23 @@ practice_tasks_7 = [
         'title': 'Числовые неравенства, координатная прямая - Практика',
         'completed': False,
         'images': [
-            'practice/№7/№7_практика_1.jpg',
-            'practice/№7/№7_практика_2.jpg',
-            'practice/№7/№7_практика_3.jpg',
-            'practice/№7/№7_практика_4.jpg',
-            'practice/№7/№7_практика_5.jpg'
+            'practice/№7/1.png',
+'practice/№7/1.png',
+            'practice/№7/1.png',
+            'practice/№7/2.png',
+            'practice/№7/3.png',
+            'practice/№7/4.png',
+            'practice/№7/5.png',
+            'practice/№7/6.png',
+            'practice/№7/7.png',
+            'practice/№7/8.png',
+            'practice/№7/9.png',
+            'practice/№7/10.png',
+            'practice/№7/11.png',
+            'practice/№7/12.png',
+            'practice/№7/13.png',
+            'practice/№7/14.png',
+            'practice/№7/15.png'
         ]
     }
 ]
